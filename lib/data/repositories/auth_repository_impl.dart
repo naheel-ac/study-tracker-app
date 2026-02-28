@@ -10,7 +10,7 @@ class AuthRepositoryImpl implements AuthRepository{
 
   @override
   Future<UserEntity?> getCurrentUser() async{
-    final user = services.getCurrentUser();
+    final user = await services.getCurrentUser();
     if(user == null) return null;
 
     final model = UserModel(id: user.id, displayName: user.userMetadata?['displayName'], email: user.email ?? '');

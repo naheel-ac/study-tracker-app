@@ -11,6 +11,8 @@ class AuthLoading extends AuthState{}
 class AuthAuthenticated extends AuthState{
   final UserEntity user;
   AuthAuthenticated(this.user);
+  @override
+  List<Object?> get props => [user];
 }
 class AuthUnauthenticated extends AuthState{}
 class AuthError extends AuthState{
