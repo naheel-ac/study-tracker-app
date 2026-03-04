@@ -2,11 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:study_tracker/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:study_tracker/presentation/bloc/auth_bloc/auth_event.dart';
 import 'package:study_tracker/presentation/bloc/auth_bloc/auth_state.dart';
 import 'package:study_tracker/presentation/screens/auth_screen/Signin_screen/widgets/custom_text_button.dart';
 import 'package:study_tracker/presentation/screens/auth_screen/Signin_screen/widgets/custom_text_field_form.dart';
+import 'package:study_tracker/presentation/screens/auth_screen/sign_up_screen/sign_up_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -69,29 +71,13 @@ class _SignInScreenState extends State<SignInScreen> {
                           key: _formKey,
                           child: Column(
                             children: <Widget>[
-                              SizedBox(
-                                height: 80,
-                                width: double.infinity,
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    const Text(
-                                      "Sign In",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    Positioned(
-                                      left: 25,
-                                      child: Icon(
-                                        Icons.arrow_back,
-                                        color: Colors.grey.withOpacity(0.9),
-                                        size: 22,
-                                      ),
-                                    ),
-                                  ],
+                              const SizedBox(height: 30),
+                              Text(
+                                "Sign In",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
                                 ),
                               ),
                               const SizedBox(height: 10),
@@ -118,14 +104,16 @@ class _SignInScreenState extends State<SignInScreen> {
                               //Email form
                               CustomTextFieldForm(
                                 controller: _emaiController,
-                                label: "email",
+                                hintText: "email",
+                                text: "Password",
                               ),
-                              const SizedBox(height: 30),
+                              const SizedBox(height: 10),
                               //Password Form
                               CustomTextFieldForm(
                                 controller: _passwordController,
-                                label: "password",
+                                hintText: "password",
                                 obscure: true,
+                                text: "Password",
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -183,8 +171,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                     child: Text(
                                       "OR CONTINUE WITH",
                                       style: TextStyle(
+                                        fontWeight: FontWeight.bold,
                                         color: Colors.grey,
-                                        fontSize: 14,
+                                        fontSize: 12,
+                                        letterSpacing: 1,
                                       ),
                                     ),
                                   ),
@@ -196,6 +186,38 @@ class _SignInScreenState extends State<SignInScreen> {
                                       child: Divider(
                                         thickness: 1,
                                         color: Color(0xff323367),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Don't have an account?",
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        PageTransition(
+                                          type: PageTransitionType.fade,
+                                          child: SignUpScreen(),
+                                          duration: Duration(milliseconds: 500),
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      "Create Account",
+                                      style: TextStyle(
+                                        color: Color(0xFF6366F2),
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                   ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CustomTextButton extends StatelessWidget {
-  final VoidCallback onPressed;
+class CustomButton extends StatelessWidget {
+  final VoidCallback? onPressed;
   final String text;
   final double? width;
 
-  const CustomTextButton({
+  const CustomButton({
     super.key,
     required this.onPressed,
     required this.text,
@@ -15,8 +15,8 @@ class CustomTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.70,
       height: MediaQuery.of(context).size.height * 0.06,
+      width: width ?? double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF6366F2)),
         onPressed: onPressed,

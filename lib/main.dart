@@ -11,24 +11,28 @@ import 'package:study_tracker/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:study_tracker/presentation/screens/auth_screen/Signin_screen/sign_in_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main()async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: ".env");
 
-  await Supabase.initialize(url: dotenv.env['SUPABASE_URL']!, anonKey: dotenv.env["SUPABASE_ANON_KEY"]!);
+  await Supabase.initialize(
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env["SUPABASE_ANON_KEY"]!,
+  );
 
   final supabaseClient = Supabase.instance.client;
   final authServices = AuthServices(supabaseClient);
   final authRepositoryImpl = AuthRepositoryImpl(authServices);
 
-
-  runApp(MyApp(
-    getCurrentUserUseCase: GetCurrentUser(authRepositoryImpl),
-    signInUseCase: SignIn(authRepositoryImpl),
-    signUpUseCase: SignUp(authRepositoryImpl),
-    signOutUseCase: SignOut(authRepositoryImpl),
-  ));
+  runApp(
+    MyApp(
+      getCurrentUserUseCase: GetCurrentUser(authRepositoryImpl),
+      signInUseCase: SignIn(authRepositoryImpl),
+      signUpUseCase: SignUp(authRepositoryImpl),
+      signOutUseCase: SignOut(authRepositoryImpl),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -36,16 +40,32 @@ class MyApp extends StatelessWidget {
   final SignIn signInUseCase;
   final SignUp signUpUseCase;
   final SignOut signOutUseCase;
-  const MyApp({super.key, required this.getCurrentUserUseCase, required this.signInUseCase, required this.signUpUseCase, required this.signOutUseCase
+
+  const MyApp({
+    super.key,
+    required this.getCurrentUserUseCase,
+    required this.signInUseCase,
+    required this.signUpUseCase,
+    required this.signOutUseCase,
   });
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider(create: (_) => AuthBloc(getCurrentUserUseCase: getCurrentUserUseCase, signInUseCase: signInUseCase, signUpUseCase: signUpUseCase, signOutUseCase: signOutUseCase))
-    ], child: MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SignInScreen(),
-    ));
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => AuthBloc(
+            getCurrentUserUseCase: getCurrentUserUseCase,
+            signInUseCase: signInUseCase,
+            signUpUseCase: signUpUseCase,
+            signOutUseCase: signOutUseCase,
+          ),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SignInScreen(),
+      ),
+    );
   }
 }

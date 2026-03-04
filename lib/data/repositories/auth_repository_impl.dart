@@ -3,42 +3,70 @@ import 'package:study_tracker/data/services/auth_services.dart';
 import 'package:study_tracker/domain/entities/user_entity.dart';
 import 'package:study_tracker/domain/repositories/auth_repository.dart';
 
-class AuthRepositoryImpl implements AuthRepository{
+class AuthRepositoryImpl implements AuthRepository {
   final AuthServices services;
 
   AuthRepositoryImpl(this.services);
 
   @override
-  Future<UserEntity?> getCurrentUser() async{
+  Future<UserEntity?> getCurrentUser() async {
     final user = await services.getCurrentUser();
-    if(user == null) return null;
+    if (user == null) return null;
 
-    final model = UserModel(id: user.id, displayName: user.userMetadata?['displayName'], email: user.email ?? '');
+    final model = UserModel(
+      id: user.id,
+      displayName: user.userMetadata?['displayName'],
+      email: user.email ?? '',
+    );
 
     return model.toEntity();
   }
 
   @override
-  Future<UserEntity?> signIn(String email, String password) async{
+  Future<UserEntity?> signIn(String email, String password) async {
     final user = await services.signIn(email, password);
-    if(user == null) return null;
-    final model = UserModel(id: user.id, displayName: user.userMetadata?['displayName'], email: user.email ?? '');
+    if (user == null) return null;
+    final model = UserModel(
+      id: user.id,
+      displayName: user.userMetadata?['displayName'],
+      email: user.email ?? '',
+    );
 
     return model.toEntity();
   }
 
   @override
-  Future<void> signOut()async {
+  Future<void> signOut() async {
     await services.signOut();
   }
 
   @override
-  Future<UserEntity?> signUp(String email, String password) async{
-    final user = await services.signUp(email, password);
-    if(user == null) return null;
+  Future<UserEntity?> signUp(
+    String email,
+    String password,
+    String userName,
+  ) async {
+    final response = await services.signUp(email, password, userName);
 
-    await services.createProfile(id: user.id, email: user.email ?? '');
-    final model =  UserModel(id: user.id, email: user.email ?? '');
+    final user = response.user;
+    final session = response.session;
+
+    if (user == null) return null;
+
+    if (session == null) {
+      throw Exception("please verify your email before loggin in");
+    }
+
+    await services.createProfile(
+      id: user.id,
+      email: user.email ?? '',
+      userName: userName,
+    );
+    final model = UserModel(
+      id: user.id,
+      email: user.email ?? '',
+      displayName: userName,
+    );
 
     return model.toEntity();
   }
