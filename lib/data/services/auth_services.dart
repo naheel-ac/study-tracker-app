@@ -22,10 +22,10 @@ class AuthServices {
     required String email,
     required String userName,
   }) async {
-    await client.from('profiles').insert({
+    await client.from('profiles').upsert({
       'id': id,
       'email': email,
-      'username': userName,
+      'display_name': userName,
     });
   }
 

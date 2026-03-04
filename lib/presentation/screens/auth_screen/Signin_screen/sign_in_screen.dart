@@ -9,6 +9,7 @@ import 'package:study_tracker/presentation/bloc/auth_bloc/auth_state.dart';
 import 'package:study_tracker/presentation/screens/auth_screen/Signin_screen/widgets/custom_text_button.dart';
 import 'package:study_tracker/presentation/screens/auth_screen/Signin_screen/widgets/custom_text_field_form.dart';
 import 'package:study_tracker/presentation/screens/auth_screen/sign_up_screen/sign_up_screen.dart';
+import 'package:study_tracker/presentation/screens/home_screen/home.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -33,9 +34,10 @@ class _SignInScreenState extends State<SignInScreen> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthAuthenticated) {
-          ScaffoldMessenger.of(
+          Navigator.pushReplacement(
             context,
-          ).showSnackBar(SnackBar(content: Text("Login Successful")));
+            PageTransition(type: PageTransitionType.fade, child: Home()),
+          );
         }
         if (state is AuthError) {
           ScaffoldMessenger.of(
@@ -100,7 +102,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   color: Colors.grey,
                                 ),
                               ),
-                              const SizedBox(height: 70),
+                              const SizedBox(height: 50),
                               //Email form
                               CustomTextFieldForm(
                                 controller: _emaiController,

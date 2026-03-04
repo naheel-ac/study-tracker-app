@@ -32,6 +32,7 @@ class CustomTextFormField extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: TextFormField(
+            style: const TextStyle(color: Colors.white),
             controller: controller,
             obscureText: obscure,
             validator: (value) {
@@ -48,6 +49,7 @@ class CustomTextFormField extends StatelessWidget {
             },
             decoration: InputDecoration(
               hintText: hintText,
+              hintStyle: TextStyle(color: Colors.grey),
               filled: true,
               focusColor: Colors.white,
               hoverColor: Colors.white,

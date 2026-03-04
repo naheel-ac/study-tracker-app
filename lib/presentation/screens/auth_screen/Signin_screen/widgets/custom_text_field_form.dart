@@ -27,6 +27,7 @@ class CustomTextFieldForm extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
           child: TextFormField(
+            style: const TextStyle(color: Colors.white),
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
                 return '$hintText cannot be empty';
@@ -43,6 +44,7 @@ class CustomTextFieldForm extends StatelessWidget {
             obscureText: obscure,
             decoration: InputDecoration(
               hintText: hintText,
+              hintStyle: TextStyle(color: Colors.grey),
               focusColor: Colors.white,
               hoverColor: Colors.white,
               filled: true,

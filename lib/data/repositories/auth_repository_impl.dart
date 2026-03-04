@@ -49,19 +49,19 @@ class AuthRepositoryImpl implements AuthRepository {
     final response = await services.signUp(email, password, userName);
 
     final user = response.user;
-    final session = response.session;
-
     if (user == null) return null;
-
-    if (session == null) {
-      throw Exception("please verify your email before loggin in");
-    }
 
     await services.createProfile(
       id: user.id,
       email: user.email ?? '',
       userName: userName,
     );
+
+    if (response.session == null) {
+      throw Exception(
+        'Please check your email and confirm your account before logging in',
+      );
+    }
     final model = UserModel(
       id: user.id,
       email: user.email ?? '',
