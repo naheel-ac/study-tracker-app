@@ -43,6 +43,8 @@ dependencies:
   bloc_test: ^10.0.0
   email_validator: ^3.0.0
   page_transition: ^2.2.1
+  animated_bottom_navigation_bar: ^1.4.0
+  flutter_svg: ^2.2.3
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +74,11 @@ flutter:
   assets:
     - assets/mainIcon.png
     - .env
+    - assets/btmIcons/clock.svg
+    - assets/btmIcons/calender.svg
+    - assets/btmIcons/profile.svg
+    - assets/btmIcons/home1.svg
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

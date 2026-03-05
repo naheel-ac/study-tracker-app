@@ -8,7 +8,7 @@ import 'package:study_tracker/domain/usecases/sign_in.dart';
 import 'package:study_tracker/domain/usecases/sign_out.dart';
 import 'package:study_tracker/domain/usecases/sign_up.dart';
 import 'package:study_tracker/presentation/bloc/auth_bloc/auth_bloc.dart';
-import 'package:study_tracker/presentation/screens/auth_screen/Signin_screen/sign_in_screen.dart';
+import 'package:study_tracker/presentation/bloc/auth_bloc/auth_wrapper.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SignInScreen(),
+        home: AuthWrapper(),
       ),
     );
   }

@@ -49,6 +49,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     try {
       final user = await signInUseCase(event.email, event.password);
+      print('sign in result: $user');
 
       if (user != null) {
         emit(AuthAuthenticated(user));

@@ -9,7 +9,7 @@ import 'package:study_tracker/presentation/bloc/auth_bloc/auth_state.dart';
 import 'package:study_tracker/presentation/screens/auth_screen/Signin_screen/sign_in_screen.dart';
 import 'package:study_tracker/presentation/screens/auth_screen/sign_up_screen/widgets/custom_button.dart';
 import 'package:study_tracker/presentation/screens/auth_screen/sign_up_screen/widgets/custom_text_form_field.dart';
-import 'package:study_tracker/presentation/screens/home_screen/home.dart';
+import 'package:study_tracker/presentation/widgets/bottom_nav_bar/btm_nav_bar.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -31,7 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         if (state is AuthAuthenticated) {
           Navigator.pushReplacement(
             context,
-            PageTransition(type: PageTransitionType.fade, child: Home()),
+            PageTransition(type: PageTransitionType.fade, child: BtmNavBar()),
           );
         }
         if (state is AuthError) {
